@@ -124,6 +124,8 @@ const TARGET_GLOBS = [
   'src/components/settings/TicketStatusesTab.tsx',
   'src/components/settings/TicketPrioritiesTab.tsx',
   'src/components/settings/InboundEmailCard.tsx',
+  'src/components/settings/EmailTemplatesTab.tsx',
+  'src/components/settings/EmailTemplateEditor.tsx',
   'src/components/settings/M365MailboxCard.tsx',
   'src/components/settings/OrgPortalSettingsEditor.tsx',
   'src/components/settings/OrgTicketSettingsEditor.tsx',
@@ -672,7 +674,9 @@ describe('no silent mutations in targeted set', () => {
     // truth W04 (#5992) adds the network asset single writer: 140 → 141.
     // Network device page truth W05 adds the probe hook: 141 → 142.
     // #4050 adds settings/ProfilePage.tsx (account security): 142 → 143.
-    expect(absoluteFiles.length).toBe(143);
+    // Outbound email templates (PR1 settings UI) add EmailTemplatesTab.tsx
+    // and EmailTemplateEditor.tsx: 143 → 145.
+    expect(absoluteFiles.length).toBe(145);
     for (const f of absoluteFiles) {
       expect(() => statSync(f)).not.toThrow();
     }
