@@ -266,7 +266,7 @@ import { writeAuditEvent } from './services/auditEvents';
 import { drainAuditRetryQueue } from './services/auditService';
 import { runShutdownPhases } from './services/shutdownPhases';
 import { drainLlmEgressQueue } from './services/llm/llmEgressRecorder';
-import { createCorsOriginResolver } from './services/corsOrigins';
+import { CORS_ALLOW_HEADERS, createCorsOriginResolver } from './services/corsOrigins';
 import { validateConfig } from './config/validate';
 import { initializeDatabaseForStartup } from './db/databaseStartup';
 import { clearPermissionCache } from './services/permissions';
@@ -428,7 +428,7 @@ app.use(
   cors({
     origin: (origin) => resolveCorsOrigin(origin),
     credentials: true,
-    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-API-Key', 'X-Breeze-CSRF'],
+    allowHeaders: [...CORS_ALLOW_HEADERS],
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     exposeHeaders: ['Content-Length', 'X-Request-Id'],
     maxAge: 86400

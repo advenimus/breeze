@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { createCorsOriginResolver, DEFAULT_ALLOWED_ORIGINS, TAURI_ORIGINS, shouldIncludeDefaultOrigins } from './corsOrigins';
+import { CORS_ALLOW_HEADERS, createCorsOriginResolver, DEFAULT_ALLOWED_ORIGINS, TAURI_ORIGINS, shouldIncludeDefaultOrigins } from './corsOrigins';
 
 describe('cors origin resolver', () => {
   it('allows known default origin when explicitly configured', () => {
@@ -80,6 +80,13 @@ describe('cors origin resolver', () => {
     });
 
     expect(resolveOrigin('http://localhost:9999')).toBeNull();
+  });
+});
+
+describe('CORS_ALLOW_HEADERS', () => {
+  it('allows the browser auth-transition preflight header', () => {
+    expect(CORS_ALLOW_HEADERS).toContain('X-Breeze-Auth-Transition');
+    expect(CORS_ALLOW_HEADERS).toContain('X-Breeze-CSRF');
   });
 });
 

@@ -17,6 +17,18 @@ export const DEFAULT_ALLOWED_ORIGINS = [
   'http://127.0.0.1:1420',
 ] as const;
 
+// Browser login sends `x-breeze-auth-transition` on every auth issuer call
+// (`fetchAuthIssuerWithBindingRetry`). A missing allowlist entry fails the
+// CORS preflight, so the SPA shows "Network error" and never posts credentials.
+export const CORS_ALLOW_HEADERS = [
+  'Content-Type',
+  'Authorization',
+  'X-Requested-With',
+  'X-API-Key',
+  'X-Breeze-CSRF',
+  'X-Breeze-Auth-Transition',
+] as const;
+
 type OriginResolverOptions = {
   configuredOriginsRaw?: string;
   nodeEnv?: string;
